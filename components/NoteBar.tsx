@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { withExpoSnack, styled } from 'nativewind';
 import { Forward } from 'lucide-react-native';
+import { RichText, useEditorBridge } from '@10play/tentap-editor';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 const StyledTextInput = styled(TextInput);
 const StyledTouchableOpacity = styled(TouchableOpacity);
+const StyledSafeAreaView = styled(SafeAreaView);
 
 const SearchBar: React.FC = () => {
+
+  const editor = useEditorBridge({
+    autofocus: true,
+    avoidIosKeyboard: true,
+  });
 
   const [query, setQuery] = useState<string>(''); 
 
@@ -25,6 +33,7 @@ const SearchBar: React.FC = () => {
       <StyledView>
         <StyledView className="justify-center mx-10"> 
           <StyledView className="flex-col items-center">
+
             <StyledTextInput
               multiline={true}
               className="p-2 w-80 border-2 border-slate-600 rounded-md text-white"

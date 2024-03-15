@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { withExpoSnack, styled } from 'nativewind';
-import SearchBar from '@/components/SearchBar';
+import NoteBar from '@/components/NoteBar';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const ModalScreen = () => {
+const TabOneScreen = () => {
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -14,7 +14,8 @@ const ModalScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <StyledView style={styles.container}>
-        <SearchBar />
+        <StyledText className='text-white font-bold text-2xl p-5'>Folder</StyledText>
+        <NoteBar/>
       </StyledView>
     </TouchableWithoutFeedback>
   );
@@ -23,19 +24,9 @@ const ModalScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 20,
     alignItems: 'center',
-    // justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    justifyContent: 'center',
   },
 });
 
-export default withExpoSnack(ModalScreen);
+export default withExpoSnack(TabOneScreen);

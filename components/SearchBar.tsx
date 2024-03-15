@@ -1,0 +1,39 @@
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { withExpoSnack, styled } from 'nativewind';
+import { Search } from 'lucide-react-native';
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
+const StyledTextInput = styled(TextInput);
+
+const SearchBar: React.FC = () => {
+  const [query, setQuery] = useState<string>(''); // Specify the type for query state as string
+
+  function handleSend() {
+    console.log("hello world");
+  }
+
+  return (
+    <StyledView>
+      <StyledView className="justify-center mx-10"> 
+        <StyledView className="flex-row items-center">
+          <StyledTextInput
+            className="p-2 w-60 border-2 border-slate-600 rounded-md"
+            placeholder='Query your life...'
+            onChangeText={(text: string) => setQuery(text)} 
+          />
+          <TouchableOpacity onPress={handleSend}>
+            <StyledView className="bg-blue-500 p-2 rounded-md ml-2">
+              <StyledText>
+                <Search color="white"/>
+              </StyledText>
+            </StyledView>
+          </TouchableOpacity>
+        </StyledView>
+      </StyledView>
+    </StyledView>
+  );
+}
+
+export default withExpoSnack(SearchBar);

@@ -13,10 +13,10 @@ const TabOneScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <StyledView style={styles.container}>
-        <StyledText className='text-white font-bold text-2xl p-5'>puno.lol</StyledText>
-        <NoteBar/>
-      </StyledView>
+        <StyledView className="mt-20" style={styles.container}>
+          <StyledText className='text-white font-bold text-[100rem] p-5'>P</StyledText>
+          <NoteBar/>
+        </StyledView>
     </TouchableWithoutFeedback>
   );
 }
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    backgroundColor: '#010203',
   },
 });
 

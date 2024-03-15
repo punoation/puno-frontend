@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { withExpoSnack, styled } from 'nativewind';
-import { Search } from 'lucide-react-native';
+import { Forward } from 'lucide-react-native';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -9,10 +9,11 @@ const StyledTextInput = styled(TextInput);
 const StyledTouchableOpacity = styled(TouchableOpacity);
 
 const SearchBar: React.FC = () => {
+
   const [query, setQuery] = useState<string>(''); 
 
   function handleSend() {
-    console.log("hello world");
+    console.log("hello world1");
   }
 
   const dismissKeyboard = () => {
@@ -31,9 +32,9 @@ const SearchBar: React.FC = () => {
               onChangeText={(text: string) => setQuery(text)} 
             />
             <StyledTouchableOpacity className="mt-5" onPress={handleSend}>
-              <StyledView className="bg-blue-500 p-2 rounded-md ml-2">
+              <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
                 <StyledText className="text-white">
-                  POST 
+                  POST <Forward color="white" size={15}/> 
                 </StyledText>
               </StyledView>
             </StyledTouchableOpacity>

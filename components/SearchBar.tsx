@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { withExpoSnack, styled } from 'nativewind';
-import { Search } from 'lucide-react-native';
+import { ArrowUpRight, FileSearch } from 'lucide-react-native';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 const StyledTextInput = styled(TextInput);
 
 const SearchBar: React.FC = () => {
-  const [query, setQuery] = useState<string>(''); // Specify the type for query state as string
+  const [query, setQuery] = useState<string>(''); 
 
   function handleSend() {
     console.log("hello world");
@@ -19,14 +19,14 @@ const SearchBar: React.FC = () => {
       <StyledView className="justify-center mx-10"> 
         <StyledView className="flex-row items-center">
           <StyledTextInput
-            className="p-2 w-60 border-2 border-slate-600 rounded-md"
+            className="p-2 w-60 border-2 border-slate-600 rounded-md text-white"
             placeholder='Query your life...'
             onChangeText={(text: string) => setQuery(text)} 
           />
           <TouchableOpacity onPress={handleSend}>
-            <StyledView className="bg-blue-500 p-2 rounded-md ml-2">
+            <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
               <StyledText>
-                <Search color="white"/>
+                <ArrowUpRight color="white"/>
               </StyledText>
             </StyledView>
           </TouchableOpacity>

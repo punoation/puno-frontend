@@ -30,6 +30,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
+          headerTitle: 'puno.lol',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>

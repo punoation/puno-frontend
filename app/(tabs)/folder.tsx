@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, FlatList, Dimensions, TouchableOpacity } from 'react-native';
-import { withExpoSnack, styled } from 'nativewind';
-import { useNavigation } from '@react-navigation/native'; // Import navigation hook
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { withExpoSnack, styled } from "nativewind";
+import { useNavigation } from "@react-navigation/native"; // Import navigation hook
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -13,7 +23,12 @@ interface TagCardProps {
 
 const TabOneScreen: React.FC = () => {
   const navigation = useNavigation(); // Get navigation object
-  const [tags, setTags] = useState<string[]>(['Productivity', 'Code', 'Memories', 'Important']);
+  const [tags, setTags] = useState<string[]>([
+    "Productivity",
+    "Code",
+    "Memories",
+    "Important",
+  ]);
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -21,7 +36,7 @@ const TabOneScreen: React.FC = () => {
   const renderTagCard = ({ item }: { item: string }) => {
     return (
       //@ts-ignore
-      <TouchableOpacity onPress={() => navigation.navigate('tag', {item})}>
+      <TouchableOpacity onPress={() => navigation.navigate("tag", { item })}>
         <StyledView style={styles.tagCard}>
           <StyledText className="text-white font-bold">{item}</StyledText>
         </StyledView>
@@ -31,27 +46,29 @@ const TabOneScreen: React.FC = () => {
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <StyledView className="flex items-center justify-center">
-        <StyledText className='text-white font-bold text-2xl p-5'>Tags</StyledText>
+      <StyledView
+        className="flex items-center justify-center"
+        style={{ backgroundColor: "#000000" }}
+      >
         <FlatList
           data={tags}
           renderItem={renderTagCard}
           numColumns={2}
-          keyExtractor={(item, index) => index.toString()} 
+          keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={styles.tagContainer}
         />
       </StyledView>
     </TouchableWithoutFeedback>
   );
-}
+};
 
-const windowWidth = Dimensions.get('window').width;
-const cardWidth = (windowWidth - 40) / 2; 
+const windowWidth = Dimensions.get("window").width;
+const cardWidth = (windowWidth - 40) / 2;
 
 const styles = StyleSheet.create({
   tagContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 20,
   },
   tagCard: {
@@ -60,11 +77,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     margin: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    shadowColor: '#000',
+    borderColor: "#E0E0E0",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -72,6 +89,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
+    backgroundColor: "#121212", // Darker card background for contrast
   },
 });
 

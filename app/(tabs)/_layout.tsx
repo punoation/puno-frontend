@@ -60,11 +60,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="folder"
+        name="todo"
         options={{
-          title: "Folder",
-          headerTitle: "Folder",
-          tabBarIcon: ({ color }) => <TabBarIcon name="folder" color={color} />,
+          title: "ToDo",
+          headerTitle: "ToDo",
+          tabBarIcon: ({ color }) => <TabBarIcon name="sticky-note-o" color={color} />,
         }}
       />
       <Tabs.Screen

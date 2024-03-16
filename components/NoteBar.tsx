@@ -21,7 +21,7 @@ const NoteBar: React.FC = () => {
   const [query, setQuery] = useState<string>(''); 
 
   function handleSend() {
-    console.log("hello world1");
+    console.log("sdsello wweeworld12");
   }
 
   const dismissKeyboard = () => {

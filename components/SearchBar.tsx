@@ -11,7 +11,7 @@ const SearchBar: React.FC = () => {
   const [query, setQuery] = useState<string>(''); 
 
   function handleSend() {
-    console.log("hello world");
+    console.log("hello worldsd");
   }
 
   return (

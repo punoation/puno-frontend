@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
 import { styled, withExpoSnack } from "nativewind";
@@ -20,10 +20,31 @@ const Tag: React.FC = () => {
   const route = useRoute<TagProps["route"]>();
   const { item = "" } = route.params || {};
 
+  const [data, setData] = useState(null);
+
   const router = useRouter();
   const handlePress = () => {
     router.push("/");
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("https://api.puno.lol/todos/getAll");
+        if (!response.ok) {
+          throw new Error(
+            "Network request failed - Server responded with an error"
+          );
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle the error, e.g., show a message to the user
+      }
+    }
+    fetchData();
+  }, []);
 
   console.log("route value :::: ", route);
 
@@ -40,6 +61,19 @@ const Tag: React.FC = () => {
 
       <StyledView className="flex mt-20 items-center justify-center">
         <StyledText className="text-white text-2xl">{item}</StyledText>
+        <StyledText>
+          {data &&
+            data.map((todo) => (
+              <StyledText
+                key={todo.id}
+                className={
+                  todo.state === "completed" ? "text-green-500" : "text-red-500"
+                }
+              >
+                {todo.content}
+              </StyledText>
+            ))}
+        </StyledText>
       </StyledView>
     </SafeAreaView>
   );

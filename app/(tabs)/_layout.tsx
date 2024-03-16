@@ -24,7 +24,7 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}>
       <Tabs.Screen
-        name="index"
+        name="notes"
         options={{
           title: 'Note',
           headerTitle: 'Note',
@@ -33,7 +33,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="search"
+        name="index"
         options={{
           title: 'query',
           headerTitle: 'puno.lol',

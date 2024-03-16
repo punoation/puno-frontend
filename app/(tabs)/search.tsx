@@ -6,7 +6,7 @@ import SearchBar from '@/components/SearchBar';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const ModalScreen = () => {
+const SearchPage = () => {
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -14,9 +14,11 @@ const ModalScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <StyledView className="flex mt-10 items-center">
-        <StyledText className='text-white text-2xl font-bold'>About</StyledText>
+          <StyledText className='text-white font-bold text-[100rem] p-5'>P</StyledText>
+        <SearchBar />
       </StyledView>
+
     </TouchableWithoutFeedback>
   );
 }
-export default withExpoSnack(ModalScreen);
+export default withExpoSnack(SearchPage);

@@ -36,7 +36,7 @@ const SearchBar: React.FC = () => {
 
             <StyledTextInput
               multiline={true}
-              className="p-2 w-80 border-2 border-slate-600 rounded-md text-white"
+              className="p-2 w-80 h-20 border-2 border-slate-600 rounded-md text-white"
               placeholder="Whats going on? "
               onChangeText={(text: string) => setQuery(text)} 
             />

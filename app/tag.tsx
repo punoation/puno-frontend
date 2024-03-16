@@ -6,12 +6,12 @@ import { styled, withExpoSnack } from 'nativewind';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-interface NewPageProps {
+interface TagProps{
   route: RouteProp<{ params: { item: string } }, 'params'>;
 }
 
-const NewPage: React.FC = () => {
-  const route = useRoute<NewPageProps['route']>();
+const Tag: React.FC = () => {
+  const route = useRoute<TagProps['route']>();
   const { item = '' } = route.params || {};
 
   console.log("route value :::: ", route);
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewPage;
+export default Tag;

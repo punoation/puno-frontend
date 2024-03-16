@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { withExpoSnack, styled } from 'nativewind';
-import { ArrowUpRight, FileSearch } from 'lucide-react-native';
+import { ArrowUpRight, Search } from 'lucide-react-native';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -26,7 +26,7 @@ const SearchBar: React.FC = () => {
           <TouchableOpacity onPress={handleSend}>
             <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
               <StyledText>
-                <ArrowUpRight color="white"/>
+                <Search color="white"/>
               </StyledText>
             </StyledView>
           </TouchableOpacity>

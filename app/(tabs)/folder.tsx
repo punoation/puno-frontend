@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'; // Import navigation h
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
-const Card = styled(View);
+// const Card = styled(View);
 
 interface TagCardProps {
   item: string;
@@ -20,23 +20,24 @@ const TabOneScreen: React.FC = () => {
 
   const renderTagCard = ({ item }: { item: string }) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('NewPage', {item})}>
-        <Card style={styles.tagCard}>
-          <StyledText style={styles.tagText}>{item}</StyledText>
-        </Card>
+      //@ts-ignore
+      <TouchableOpacity onPress={() => navigation.navigate('tag', {item})}>
+        <StyledView style={styles.tagCard}>
+          <StyledText className="text-white font-bold">{item}</StyledText>
+        </StyledView>
       </TouchableOpacity>
     );
   };
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <StyledView style={styles.container}>
+      <StyledView className="flex items-center justify-center">
         <StyledText className='text-white font-bold text-2xl p-5'>Tags</StyledText>
         <FlatList
           data={tags}
           renderItem={renderTagCard}
           numColumns={2}
-          keyExtractor={(item, index) => index.toString()} // Ensure keyExtractor returns a string
+          keyExtractor={(item, index) => index.toString()} 
           contentContainerStyle={styles.tagContainer}
         />
       </StyledView>
@@ -45,14 +46,9 @@ const TabOneScreen: React.FC = () => {
 }
 
 const windowWidth = Dimensions.get('window').width;
-const cardWidth = (windowWidth - 40) / 2; // Considering 20 margin on each side
+const cardWidth = (windowWidth - 40) / 2; 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   tagContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -61,15 +57,21 @@ const styles = StyleSheet.create({
   tagCard: {
     width: cardWidth,
     height: cardWidth,
-    backgroundColor: 'lightgray',
-    borderRadius: 8,
-    padding: 20,
+    borderRadius: 10,
+    padding: 15,
     margin: 10,
     alignItems: 'center',
-    justifyContent: 'center', // Center horizontally and vertically
-  },
-  tagText: {
-    textAlign: 'center', // Center text within the card
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
 });
 

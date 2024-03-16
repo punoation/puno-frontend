@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Button,
+  Animated,
+} from "react-native";
 import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
 import { styled, withExpoSnack } from "nativewind";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,6 +27,9 @@ const Tag: React.FC = () => {
   const { item = "" } = route.params || {};
 
   const [data, setData] = useState(null);
+  const [fadeAnims, setFadeAnims] = useState<{ [key: number]: Animated.Value }>(
+    {}
+  );
 
   const router = useRouter();
   const handlePress = () => {
@@ -28,6 +38,17 @@ const Tag: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
+      // Optimistically remove todo from UI
+      setData((prevData) => prevData.filter((todo) => todo.id !== id));
+      // Start fade out animation for the specific todo
+      fadeAnims[id].setValue(0);
+      Animated.timing(fadeAnims[id], {
+        toValue: 0,
+        duration: 500, // Animation duration in milliseconds
+        useNativeDriver: true, // Enable native driver for performance
+      }).start();
+
+      // Send delete request to the server
       const response = await fetch("https://api.puno.lol/todos/delete", {
         method: "POST",
         headers: {
@@ -40,8 +61,6 @@ const Tag: React.FC = () => {
           "Network request failed - Server responded with an error"
         );
       }
-      // Update UI optimistically
-      setData((prevData) => prevData.filter((todo) => todo.id !== id));
     } catch (error) {
       console.error("Error deleting todo:", error);
       // Handle error
@@ -59,6 +78,12 @@ const Tag: React.FC = () => {
         }
         const data = await response.json();
         setData(data);
+        // Initialize fade animations for each todo
+        const initialFadeAnims = data.reduce((acc, todo) => {
+          acc[todo.id] = new Animated.Value(1);
+          return acc;
+        }, {});
+        setFadeAnims(initialFadeAnims);
       } catch (error) {
         console.error("Error fetching data:", error);
         // Handle the error, e.g., show a message to the user
@@ -81,23 +106,27 @@ const Tag: React.FC = () => {
       </StyledView>
 
       <StyledView className="flex mt-20 items-center justify-center">
-        <StyledText className="text-white text-2xl">{item}</StyledText>
+        <StyledText className="text-white text-2xl pl-2">{item}</StyledText>
         <StyledView className="flex flex-col gap-2 mt-10">
           {data &&
             data.map((todo) => (
-              <StyledView
+              <Animated.View
                 className="space-x-2"
                 key={todo.id}
-                style={styles.todoContainer}
+                style={[
+                  styles.todoContainer,
+                  {
+                    opacity: fadeAnims[todo.id], // Set opacity based on the fade animation
+                  },
+                ]}
               >
-                <Circle
-                  onPress={() => handleDelete(todo.id)}
-                  color="#ff6666" // Set a distinct color for the delete button
-                />
-                <StyledText className="text-white text-xl">
+                <TouchableOpacity onPress={() => handleDelete(todo.id)}>
+                  <Circle color="#ff6666" />
+                </TouchableOpacity>
+                <StyledText className="text-white text-xl pl-2">
                   {todo.content}
                 </StyledText>
-              </StyledView>
+              </Animated.View>
             ))}
         </StyledView>
       </StyledView>

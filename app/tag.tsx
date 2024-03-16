@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
 import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
 import { styled, withExpoSnack } from "nativewind";
-
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native"; // Import ArrowLeft icon from react-native-lucide
+import { ArrowLeft, Circle } from "lucide-react-native"; // Import ArrowLeft icon from react-native-lucide
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -27,8 +26,30 @@ const Tag: React.FC = () => {
     router.push("/");
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch("https://api.puno.lol/todos/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+      if (!response.ok) {
+        throw new Error(
+          "Network request failed - Server responded with an error"
+        );
+      }
+      // Update UI optimistically
+      setData((prevData) => prevData.filter((todo) => todo.id !== id));
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      // Handle error
+    }
+  };
+
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const response = await fetch("https://api.puno.lol/todos/getAll");
         if (!response.ok) {
@@ -42,7 +63,7 @@ const Tag: React.FC = () => {
         console.error("Error fetching data:", error);
         // Handle the error, e.g., show a message to the user
       }
-    }
+    };
     fetchData();
   }, []);
 
@@ -61,19 +82,24 @@ const Tag: React.FC = () => {
 
       <StyledView className="flex mt-20 items-center justify-center">
         <StyledText className="text-white text-2xl">{item}</StyledText>
-        <StyledText>
+        <StyledView className="flex flex-col gap-2 mt-10">
           {data &&
             data.map((todo) => (
-              <StyledText
+              <StyledView
+                className="space-x-2"
                 key={todo.id}
-                className={
-                  todo.state === "completed" ? "text-green-500" : "text-red-500"
-                }
+                style={styles.todoContainer}
               >
-                {todo.content}
-              </StyledText>
+                <Circle
+                  onPress={() => handleDelete(todo.id)}
+                  color="#ff6666" // Set a distinct color for the delete button
+                />
+                <StyledText className="text-white text-xl">
+                  {todo.content}
+                </StyledText>
+              </StyledView>
             ))}
-        </StyledText>
+        </StyledView>
       </StyledView>
     </SafeAreaView>
   );
@@ -87,6 +113,14 @@ const styles = StyleSheet.create({
   },
   tagText: {
     fontSize: 24,
+  },
+  todoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  todoText: {
+    color: "white",
+    flex: 1,
   },
 });
 

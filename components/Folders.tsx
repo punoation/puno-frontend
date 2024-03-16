@@ -24,7 +24,7 @@ interface TagCardProps {
   item: string;
 }
 
-const TabOneScreen: React.FC = () => {
+const Folders: React.FC = () => {
   const navigation = useNavigation(); // Get navigation object
   const [tags, setTags] = useState<string[]>(["Quick Notes", "Todos"]);
   const dismissKeyboard = () => {
@@ -34,7 +34,6 @@ const TabOneScreen: React.FC = () => {
   const renderTagCard = ({ item }: { item: string }) => {
     return (
       //@ts-ignore
-
       <TouchableOpacity onPress={() => navigation.navigate("tag", { item })}>
         <StyledView className="flex flex-row space-x-2" style={styles.tagCard}>
           <Folder color="white" size={15} />
@@ -107,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withExpoSnack(TabOneScreen);
+export default withExpoSnack(Folders);

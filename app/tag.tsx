@@ -22,7 +22,7 @@ const Tag: React.FC = () => {
 
   const router = useRouter();
   const handlePress = () => {
-    router.push("/folder");
+    router.push("/");
   };
 
   console.log("route value :::: ", route);

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import { View, TextInput, Button, Text, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useUser, useAuth } from "@clerk/clerk-expo";
+
+import { withExpoSnack, styled } from "nativewind";
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const Profile = () => {
   const { user } = useUser();
@@ -33,30 +37,36 @@ const Profile = () => {
     );
   }
 
+  const dismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
   return (
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
     <View style={styles.container}>
       <Text style={styles.greeting}>
-        Good morning {user?.firstName} {user?.lastName}!
+        Hello {user?.firstName} 👋
       </Text>
+      <StyledView className="flex flex-row space-x-10">
+        <TextInput
+          placeholder={firstName}
+          // value={firstName}
+          onChangeText={setFirstName}
+          style={styles.inputField}
 
-      <TextInput
-        placeholder="First Name"
-        value={firstName}
-        onChangeText={setFirstName}
-        style={styles.inputField}
-      />
-      <TextInput
-        placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
-        style={styles.inputField}
-      />
+        />
+        <TextInput
+          placeholder={lastName}
+          onChangeText={setLastName}
+          style={styles.inputField}
+        />
+      </StyledView>
       <Button onPress={onSaveUser} title="Update account" color={"#a855f6"} />
 
       <View style={styles.logoutButton}>
         <Button onPress={onLogout} title="Logout" color={"#a855f6"} />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -75,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inputField: {
-    width: "100%",
+    width: "40%",
     marginVertical: 10,
     height: 50,
     borderWidth: 1,

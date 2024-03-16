@@ -11,7 +11,7 @@ const StyledTextInput = styled(TextInput);
 const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledSafeAreaView = styled(SafeAreaView);
 
-const SearchBar: React.FC = () => {
+const NoteBar: React.FC = () => {
 
   const editor = useEditorBridge({
     autofocus: true,
@@ -55,4 +55,4 @@ const SearchBar: React.FC = () => {
   );
 }
 
-export default withExpoSnack(SearchBar);
+export default withExpoSnack(NoteBar);

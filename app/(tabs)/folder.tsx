@@ -8,10 +8,13 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { withExpoSnack, styled } from "nativewind";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ViewStyle } from "react-native"; // Import ViewStyle
+import { Folder } from 'lucide-react-native';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -23,12 +26,7 @@ interface TagCardProps {
 
 const TabOneScreen: React.FC = () => {
   const navigation = useNavigation(); // Get navigation object
-  const [tags, setTags] = useState<string[]>([
-    "Productivity",
-    "Code",
-    "Memories",
-    "Important",
-  ]);
+  const [tags, setTags] = useState<string[]>(["Quick Notes", "Todos"]);
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -36,46 +34,54 @@ const TabOneScreen: React.FC = () => {
   const renderTagCard = ({ item }: { item: string }) => {
     return (
       //@ts-ignore
+
       <TouchableOpacity onPress={() => navigation.navigate("tag", { item })}>
-        <StyledView style={styles.tagCard}>
-          <StyledText className="text-white font-bold">{item}</StyledText>
+        <StyledView className="flex flex-row space-x-2" style={styles.tagCard}>
+            <Folder color="white" size={15}/> 
+          <StyledText className="text-white font-bold">
+            {item}
+          </StyledText>
         </StyledView>
       </TouchableOpacity>
     );
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <StyledView
-        className="flex items-center justify-center"
-        style={{ backgroundColor: "#000000" }}
-      >
-        <FlatList
-          data={tags}
-          renderItem={renderTagCard}
-          numColumns={2}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={styles.tagContainer}
-        />
-      </StyledView>
-    </TouchableWithoutFeedback>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#010203" }}>
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+        <StyledView
+          style={styles.container as ViewStyle} // Cast to ViewStyle
+        >
+          <FlatList
+            data={tags}
+            renderItem={renderTagCard}
+            numColumns={1}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.tagContainer}
+          />
+        </StyledView>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 
-const windowWidth = Dimensions.get("window").width;
+const windowWidth = Dimensions.get("window").width - 50;
 const cardWidth = (windowWidth - 40) / 2;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000000",
+  },
   tagContainer: {
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 20,
   },
   tagCard: {
-    width: cardWidth,
-    height: cardWidth,
+    // width: cardWidth,
+    height: 50,
     borderRadius: 10,
-    padding: 15,
     margin: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -90,6 +96,16 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
     backgroundColor: "#121212", // Darker card background for contrast
+    width: windowWidth,
+  },
+  textInput: {
+    height: 200,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    padding: 15,
+    color: "#333",
+    backgroundColor: "#f9f9f9",
+    marginBottom: 20,
   },
 });
 

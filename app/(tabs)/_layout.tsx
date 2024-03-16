@@ -63,7 +63,7 @@ export default function TabLayout() {
         name="folder"
         options={{
           title: "Folder",
-          headerTitle: "Tags",
+          headerTitle: "Folder",
           tabBarIcon: ({ color }) => <TabBarIcon name="folder" color={color} />,
         }}
       />

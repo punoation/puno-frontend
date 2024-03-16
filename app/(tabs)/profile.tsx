@@ -53,12 +53,9 @@ const Profile = () => {
       />
       <Button onPress={onSaveUser} title="Update account" color={"#a855f6"} />
 
-      <Button
-        onPress={onLogout}
-        title="Logout"
-        color={"#a855f6"}
-        style={styles.logoutButton}
-      />
+      <View style={styles.logoutButton}>
+        <Button onPress={onLogout} title="Logout" color={"#a855f6"} />
+      </View>
     </View>
   );
 };

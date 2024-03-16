@@ -40,6 +40,7 @@ const SearchBar: React.FC = () => {
               placeholder="Whats going on? "
               onChangeText={(text: string) => setQuery(text)} 
             />
+            <StyledText className="text-slate-600 text-sm">*Markdown is supported</StyledText>
             <StyledTouchableOpacity className="mt-5" onPress={handleSend}>
               <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
                 <StyledText className="text-white">

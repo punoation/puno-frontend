@@ -35,7 +35,7 @@ const TabOneScreen: React.FC = () => {
     return (
       //@ts-ignore
 
-      <TouchableOpacity onPress={() => navigation.navigate("tag", { item })}>
+      <TouchableOpacity onPress={() => navigation.navigate(item === "Quick Notes" ? "quicknotes" : "tags", { item })}>
         <StyledView className="flex flex-row space-x-2" style={styles.tagCard}>
           <Folder color="white" size={15} />
           <StyledText className="text-white font-bold">{item}</StyledText>

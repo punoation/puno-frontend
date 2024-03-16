@@ -36,13 +36,21 @@ const NoteBar: React.FC = () => {
         },
         body: JSON.stringify({
           content: query,
-          userid: "nexxel",
+          userId: "shoubhit",
         }),
       });
+
+      if (!response.ok) {
+        console.log(response.status);
+        console.log(response.statusText);
+        throw new Error("Failed to send data");
+      }
+
       const data = await response.json();
       console.log("Success:", data);
     } catch (error) {
       console.error("Error:", error);
+      // Handle error here
     }
   }
 
@@ -64,7 +72,10 @@ const NoteBar: React.FC = () => {
             <StyledText className="text-slate-600 text-sm">
               *Markdown is supported
             </StyledText>
-            <StyledTouchableOpacity className="mt-5" onPress={handleSend}>
+            <StyledTouchableOpacity
+              className="mt-5"
+              onPress={async () => await handleSend()}
+            >
               <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
                 <StyledText className="text-white">
                   POST <Forward color="white" size={15} />

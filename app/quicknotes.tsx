@@ -98,11 +98,14 @@ const Tag: React.FC = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#010203" }}>
       <StyledView className="mt-10 absolute top-5 left-5 p-2 bg-purple-800 rounded-full">
+        <StyledText className="text-white">
+          Unique Content for Quick Notes
+        </StyledText>
         <StyledTouchableOpacity
           onPress={handlePress}
           className="justify-center items-center"
         >
-          <ArrowLeft color="white" size={24} />
+          <ArrowLeft color="red" size={24} />
         </StyledTouchableOpacity>
       </StyledView>
 

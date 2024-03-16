@@ -24,13 +24,13 @@ interface TagCardProps {
 }
 
 const TabOneScreen = () => {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
   const [folder, setFolder] = useState<string[]>(["Quick Notes", "Todos"]);
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
 
-  const renderCard = ({ item } : { item: string }) => {
+  const renderCard = ({ item }: { item: string }) => {
     return (
       //@ts-ignore
       <TouchableOpacity onPress={() => navigation.navigate("tag", { item })}>
@@ -39,8 +39,8 @@ const TabOneScreen = () => {
           <StyledText className="text-white font-bold">{item}</StyledText>
         </StyledView>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
@@ -49,18 +49,18 @@ const TabOneScreen = () => {
           style={{ backgroundColor: "#000000" }}
           className="flex mt-10 items-center"
         >
-          <StyledText className="text-white font-bold text-[100rem] p-5">
-            P
+          <StyledText className="text-white font-bold text-[80rem] p-5">
+            puno
           </StyledText>
           <SearchBar />
-          <StyledView className="mt-5">
+          {/* <StyledView className="mt-5">
             <FlatList
               data={folder}
               renderItem={renderCard}
               numColumns={1}
               keyExtractor={(item, index) => index.toString()}
             />
-          </StyledView>
+          </StyledView> */}
         </StyledView>
       </SafeAreaView>
     </TouchableWithoutFeedback>

@@ -7,6 +7,7 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from "react-native";
 import { withExpoSnack, styled } from "nativewind";
 import { Forward } from "lucide-react-native";
@@ -26,8 +27,11 @@ const NoteBar: React.FC = () => {
   });
 
   const [query, setQuery] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   async function handleSend() {
+    setLoading(true); // Start loading
+
     try {
       const response = await fetch("https://api.puno.lol/entries/create", {
         method: "POST",
@@ -48,9 +52,14 @@ const NoteBar: React.FC = () => {
 
       const data = await response.json();
       console.log("Success:", data);
+
+      // Clear input field after successful post
+      setQuery("");
     } catch (error) {
       console.error("Error:", error);
       // Handle error here
+    } finally {
+      setLoading(false); // Stop loading
     }
   }
 
@@ -68,6 +77,7 @@ const NoteBar: React.FC = () => {
               className="p-2 w-80 h-20 border-2 border-slate-600 rounded-md text-white"
               placeholder="Whats going on? "
               onChangeText={(text: string) => setQuery(text)}
+              value={query}
             />
             <StyledText className="text-slate-600 text-sm">
               *Markdown is supported
@@ -76,11 +86,15 @@ const NoteBar: React.FC = () => {
               className="mt-5"
               onPress={async () => await handleSend()}
             >
-              <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
-                <StyledText className="text-white">
-                  POST <Forward color="white" size={15} />
-                </StyledText>
-              </StyledView>
+              {loading ? (
+                <ActivityIndicator color="#ffffff" />
+              ) : (
+                <StyledView className="bg-purple-500 p-2 rounded-md ml-2">
+                  <StyledText className="text-white">
+                    POST <Forward color="white" size={15} />
+                  </StyledText>
+                </StyledView>
+              )}
             </StyledTouchableOpacity>
           </StyledView>
         </StyledView>

@@ -79,7 +79,7 @@ const SearchBar: React.FC = () => {
       </StyledView>
       {typedAnswer && (
         <StyledView style={styles.answerContainer}>
-          <StyledText style={styles.answerText}>{typedAnswer}</StyledText>
+          <StyledText className='font-bold pt-20 px-10 pb-10 text-xl' style={styles.answerText}>{typedAnswer}</StyledText>
         </StyledView>
       )}
     </StyledView>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: 10,
     paddingVertical: 8,
-    width: '70%',
+    width: '85%',
     backgroundColor: '#333',
     color: 'white',
     borderRadius: 5,
@@ -99,17 +99,18 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     backgroundColor: '#a855f6',
-    padding: 10,
+    padding: 8,
     borderRadius: 5,
     marginLeft: 10,
   },
   answerContainer: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: '#1f1f1f', // Change background color
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#a855f6', // Change border color
+    // marginTop: 10,
+    // padding: 10,
+    // fontWeight: "bold",
+    // backgroundColor: '#1f1f1f', // Change background color
+    // borderRadius: 10,
+    // borderWidth: 1,
+    // borderColor: '#a855f6', // Change border color
   },
   answerText: {
     color: 'white',

@@ -1,6 +1,12 @@
 # puno.lol
 ## a search engine for your life
 
+## Frontend Tech Stack
+- React Native
+- Expo
+- Typescript
+- NativeWind
+
 ### A big problem we face in our life is **information overload and disorganization**.
 - Life is hectic, and we juggle multiple responsibilities. We use various apps and platforms to store our thoughts, tasks, and experiences.
 - But here’s the challenge: These scattered fragments of our lives often get lost in the digital noise. We forget where we saved that important document or the details of a cherished memory.
